@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  
+}
+
+#canvas {
+  overflow: hidden;
+  position: fixed;
+  z-index: -1;
+}
+
+.pagetext {
+  color: antiquewhite;
+}
+
+.title{
+display: flex;
+justify-content: center;
+align-items: center;
+height: 20vh;
+font-size: xx-large;
+margin-bottom: 500px;
+}
+
+.paragraph{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;   
+}
+
+.paragraph * {
+    width: 60%;
+}
