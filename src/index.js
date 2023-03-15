@@ -1,5 +1,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import * as GSAP from "gsap";
+
 const gtlfPath = "../files/gltf/mo-hand-test.gltf";
 
 //set up clock for rotate
@@ -93,7 +95,7 @@ const rotatearound = () => {
 function animate() {
   //callback requesting animationframe
   requestAnimationFrame(animate);
-  rotatearound();
+
   //render using scene and camera;
   renderer.render(scene, camera);
 }
