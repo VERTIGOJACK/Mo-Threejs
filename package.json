@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@egjs/flicking": "^4.10.6",
-    "panzoom": "^9.4.3"
+    "panzoom": "^9.4.3",
+    "three": "^0.150.1"
   }
 }
