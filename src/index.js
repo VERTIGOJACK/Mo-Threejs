@@ -1,8 +1,8 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import * as GSAP from "gsap";
+import gsap from "gsap";
 
-const gtlfPath = "../files/gltf/mo-hand-test.gltf";
+const gtlfPath = "/lib/gltf/mo-hand-test.gltf";
 
 //set up clock for rotate
 const clock = new THREE.Clock();
@@ -10,6 +10,9 @@ var time = 0;
 
 //set up dom object
 const frame = document.getElementById("canvas");
+const next = document.getElementById("next");
+const back = document.getElementById("back");
+const description = document.getElementById("description");
 
 //we need three things: scene camera and renderer;
 const scene = new THREE.Scene();
@@ -32,13 +35,62 @@ window.addEventListener("resize", function () {
   let width = window.innerWidth;
   let height = window.innerHeight;
   renderer.setSize(width, height);
+  camera.fov = (window.innerHeight / window.screen.height) * 30;
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
 });
 
 //add hand var
 let hand;
-let camerapoints = {};
+let cameraPointCounter = 0;
+let camerapoints = [
+  { x: 1, y: -5, z: 0 },
+  { x: 1, y: -22, z: 0 },
+];
+
+var camera_offset = camerapoints[cameraPointCounter];
+
+let debounce = 200;
+let timestamp = Date.now();
+
+next.addEventListener("mousedown", () => {
+  if (Date.now() - timestamp > debounce) {
+    timestamp = Date.now();
+    if (cameraPointCounter != camerapoints.length - 1) {
+      cameraPointCounter++;
+    } else {
+      cameraPointCounter = 0;
+    }
+    UpdateDesc(cameraPointCounter);
+  }
+});
+
+back.addEventListener("mousedown", () => {
+  if (Date.now() - timestamp > debounce) {
+    timestamp = Date.now();
+    if (cameraPointCounter != 0) {
+      cameraPointCounter--;
+    } else {
+      cameraPointCounter = camerapoints.length - 1;
+    }
+    UpdateDesc(cameraPointCounter);
+  }
+});
+
+const UpdateDesc = (number) => {
+  switch (number) {
+    case 0:
+      fetch("/lib/html/description1.html")
+        .then((result) => result.text())
+        .then((text) => (description.innerHTML = text));
+      break;
+    case 1:
+      fetch("/lib/html/description2.html")
+        .then((result) => result.text())
+        .then((text) => (description.innerHTML = text));
+      break;
+  }
+};
 
 //gltf test
 let loader = new GLTFLoader();
@@ -57,7 +109,7 @@ loader.load(gtlfPath, (gltf) => {
 
   //log all objects in gltf model
   gltf.scene.traverse(function (child) {
-    console.log(child);
+    console.log(child.name);
   });
 
   animate();
@@ -74,11 +126,11 @@ const cube = new THREE.Mesh(geometry, material);
 // scene.add(cube);
 // camera.position.z = 5;
 
-var target = { x: 0, y: 0, z: 0 };
-var camera_offset = { x: 5, y: 0, z: 0 };
+var target = { x: 0, y: -0.5, z: 0 };
 var camera_speed = 0.5;
 
 const rotatearound = () => {
+  camera_offset = camerapoints[cameraPointCounter];
   camera.position.x =
     target.x + camera_offset.x * Math.sin(time * camera_speed);
   camera.position.z =
@@ -95,7 +147,7 @@ const rotatearound = () => {
 function animate() {
   //callback requesting animationframe
   requestAnimationFrame(animate);
-
+  rotatearound();
   //render using scene and camera;
   renderer.render(scene, camera);
 }

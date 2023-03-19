@@ -1,0 +1,170 @@
+@import url("https://fonts.googleapis.com/css2?family=Junge&family=Liu+Jian+Mao+Cao&family=Luckiest+Guy&display=swap");
+/*
+font-family: 'Junge', serif;
+font-family: 'Liu Jian Mao Cao', cursive;
+font-family: 'Luckiest Guy', cursive;
+*/
+
+:root {
+  --dark-purple: #160a26;
+  --mid-purple: #280440;
+  --light-purple: #d3c4f2;
+  --mid-green: #3ca638;
+  --light-green: #48d932;
+  --item-drop-shadow: 0px 8px 2px rgba(0, 0, 0, 0.5);
+  --green-glow: 0px 0px 16px rgba(72, 217, 50, 0.8);
+  --purple-drop-shadow: 4px 8px 32px rgba(211, 196, 242, 0.4);
+  --item-border-radius: 1vmin;
+  --see-through-background: rgba(255, 255, 255, 0.05);
+  --see-through-background-hover: rgba(255, 255, 255, 0.5);
+  --title: "Comfortaa", cursive;
+  --paragraph: "Tilt Neon", cursive;
+  --titlepadding: 40px;
+  --navheight: 100px;
+  --transitionspeed: 0.2s;
+}
+
+#canvas {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  z-index: -1;
+  background-color: none;
+}
+
+/* reset */
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+/* fonts */
+h1 {
+  font-family: "Luckiest Guy", cursive;
+  font-size: 4em;
+}
+h2 {
+  font-family: "Liu Jian Mao Cao", cursive;
+  font-size: 3em;
+}
+p {
+  font-family: "Junge", serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navitem {
+  margin: var(--titlepadding);
+  color: white;
+}
+
+/* html */
+.main {
+  height: 100%;
+  min-height: 100vh;
+  background: radial-gradient(
+    circle,
+    rgba(2, 0, 36, 0) 0%,
+    var(--dark-purple) 100%
+  );
+}
+
+.social {
+  display: flex;
+  flex-direction: row-reverse;
+  height: calc(var(--navheight) / 2);
+}
+
+.social a {
+  display: grid;
+  place-content: center;
+  height: 100%;
+  aspect-ratio: 1/1;
+  font-size: 30px;
+  text-decoration: none;
+  margin: var(--titlepadding);
+  margin-left: 0;
+  background-color: var(--mid-purple);
+  color: white;
+  border-radius: 100%;
+  filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0));
+  transition: var(--transitionspeed);
+}
+
+nav {
+  width: 100%;
+  height: 100px;
+  background-color: var(--mid-purple);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.cycle {
+  pointer-events: none;
+  position: fixed;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.cycle button {
+  pointer-events: all;
+  width: var(--titlepadding);
+  height: var(--titlepadding);
+  margin: var(--titlepadding);
+  border-radius: 100%;
+  border-style: none;
+  background-color: var(--see-through-background);
+  color: white;
+  transition: var(--transitionspeed);
+}
+
+.cyclearrow {
+  transform: scale(8);
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 60vh;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.description-container {
+  border-top: solid;
+  border-color: white;
+  border-width: calc(var(--titlepadding) / 8);
+
+  width: 80%;
+}
+
+.glow:hover {
+  cursor: pointer;
+  background-color: var(--see-through-background-hover);
+  color: var(--light-green);
+  filter: drop-shadow(var(--green-glow));
+}
